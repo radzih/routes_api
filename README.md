@@ -4,9 +4,7 @@ This project is an API that implements clean architecture principles and allows 
 
 Some of the features of the API include:
 
-* User authentication and authorization
 * Ability to search for and purchase tickets
-* Support for different payment methods
 * Integration with external ticket providers
 
 The API is built using modern web technologies such as FastAPI, SQLAlchemy and Postgres and follows best practices for building scalable and performant systems. It can be easily integrated with other systems and can be deployed on a variety of platforms.
