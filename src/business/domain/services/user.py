@@ -14,13 +14,13 @@ def create_user(name: str, surname: str, email: str) -> entities.User:
 
 def update_user(
     user: entities.User,
-    name: Optional[str],
-    surname: Optional[str],
-    email: Optional[str],
+    name: Optional[str] = None, 
+    surname: Optional[str] = None,
+    email: Optional[str] = None,
 ) -> None:
     if name:
         user.name = name
     if surname:
         user.surname = surname
     if email:
-        user.email = surname
+        user.email = email
