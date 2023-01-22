@@ -39,9 +39,9 @@ class UpdateUser(UseCase):
         self.db_gateway = db_gateway
 
     async def __call__(self, data: dto.UserUpdate) -> dto.User:
-        user = await self.db_gateway.read_user(data)
+        user = await self.db_gateway.read_user(data.id)
 
-        update_user(user)
+        update_user(user, data.name, data.surname, data.email)
 
         await self.db_gateway.save_user(user)
         await self.db_gateway.commit()

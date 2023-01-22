@@ -14,9 +14,9 @@ class UserCreate:
 @dataclass
 class UserUpdate:
     id: entities.UserId
-    name: Optional[str]
-    surname: Optional[str]
-    email: Optional[str]
+    name: Optional[str] = None
+    surname: Optional[str] = None
+    email: Optional[str] = None
 
 
 @dataclass
