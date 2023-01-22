@@ -1,5 +1,6 @@
-from src.business.application.user import use_cases, dto, exceptions
 from pytest import raises
+
+from src.business.application.user import dto, exceptions, use_cases
 
 
 class TestUser:
@@ -77,3 +78,6 @@ class TestUser:
         assert user.name == new_name
         assert user.surname == new_surname
         assert user.email == new_email
+
+        with raises(exceptions.UserNotExists):
+            await update_user(dto.UserUpdate(10000))
