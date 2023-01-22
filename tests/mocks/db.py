@@ -10,12 +10,13 @@ class MockDBGateway(
 ):
     def __init__(self) -> None:
         self.storage = {}
+        self.to_commit = {}
 
     async def save_user(self, user: entities.User) -> entities.UserId:
         if not user.id:
             user.id = len(self.storage) + 1
 
-        self.storage.update({user.id: user})
+        self.to_commit.update({user.id: user})
 
         return user.id
 
@@ -28,4 +29,5 @@ class MockDBGateway(
         return user
 
     async def commit(self) -> None:
-        pass
+        self.storage.update(self.to_commit)
+        self.to_commit = {}
