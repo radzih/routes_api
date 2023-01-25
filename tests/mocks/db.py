@@ -1,33 +1,52 @@
-from src.business.application.common import interfaces
+from datetime import datetime, timedelta
+
 from src.business.domain import entities
-from src.business.application.user.exceptions import UserNotExists
+from tests.mocks import repositories
+
+TABLES = [
+    "ticket",
+    "user",
+]
 
 
 class MockDBGateway(
-    interfaces.Commiter,
-    interfaces.UserSaver,
-    interfaces.UserReader,
+    repositories.UserSaver,
+    repositories.UserReader,
+    repositories.TicketReader,
+    repositories.TicketRemover,
+    repositories.TicketSaver,
+    repositories.Commiter,
 ):
     def __init__(self) -> None:
         self.storage = {}
         self.to_commit = {}
 
-    async def save_user(self, user: entities.User) -> entities.UserId:
-        if not user.id:
-            user.id = len(self.storage) + 1
+        for table in TABLES:
+            self.storage.update({table: {}})
+            self.to_commit.update({table: {}})
 
-        self.to_commit.update({user.id: user})
+    def fill_storage(self):
+        for i in range(1, 11):
+            self.storage["user"][i] = entities.User(
+                id=i,
+                name=f"User{i}",
+                surname=f"Surname{i}",
+                email=f"{i}mail@mail.com",
+            )
 
-        return user.id
+        for booked in (True, False):
+            for i in range(1, 21):
+                self.storage["ticket"][i] = entities.Ticket(
+                    id=i,
+                    route_id=1,
+                    user_id=(i - 1) // 2 + 1,
+                    from_station_id=i,
+                    to_station_id=i + 1,
+                    price=100,
+                    departure_time=datetime.now(),
+                    arrival_time=datetime.now() + timedelta(hours=1),
+                    is_booked=booked,
+                )
 
-    async def read_user(self, user_id: entities.UserId) -> entities.User:
-        user = self.storage.get(user_id, None)
-
-        if not user:
-            raise UserNotExists
-
-        return user
-
-    async def commit(self) -> None:
-        self.storage.update(self.to_commit)
-        self.to_commit = {}
+    def clean_db(self):
+        self.__init__()

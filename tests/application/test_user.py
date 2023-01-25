@@ -1,6 +1,7 @@
 from pytest import raises
 
 from src.business.application.user import dto, exceptions, use_cases
+from tests.mocks.db import MockDBGateway
 
 
 class TestUser:
@@ -12,7 +13,9 @@ class TestUser:
     async def test_create_user(
         self,
         create_user: use_cases.CreateUser,
+        db_gateway: MockDBGateway,
     ) -> None:
+        db_gateway.clean_db()
         user_id = await create_user(
             dto.UserCreate(
                 self.name,
