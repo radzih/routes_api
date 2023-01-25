@@ -11,17 +11,11 @@ class TestUser:
     email = "email@email.com"
 
     async def test_create_user(
-        self,
-        create_user: use_cases.CreateUser,
-        db_gateway: MockDBGateway,
+        self, create_user: use_cases.CreateUser, db_gateway: MockDBGateway
     ) -> None:
         db_gateway.clean_db()
         user_id = await create_user(
-            dto.UserCreate(
-                self.name,
-                self.surname,
-                self.email,
-            )
+            dto.UserCreate(self.name, self.surname, self.email)
         )
 
         assert user_id == self.id
@@ -37,8 +31,7 @@ class TestUser:
             await get_user(10000)
 
     async def test_update_user(
-        self,
-        update_user: use_cases.UpdateUser,
+        self, update_user: use_cases.UpdateUser
     ) -> None:
         new_name = "Bill"
         new_surname = "Marker"
@@ -58,11 +51,7 @@ class TestUser:
         assert user.email == self.email
 
         user = await update_user(
-            dto.UserUpdate(
-                self.id,
-                new_name,
-                new_surname,
-            )
+            dto.UserUpdate(self.id, new_name, new_surname)
         )
 
         assert user.name == new_name
@@ -70,12 +59,7 @@ class TestUser:
         assert user.email == self.email
 
         user = await update_user(
-            dto.UserUpdate(
-                self.id,
-                new_name,
-                new_surname,
-                new_email,
-            )
+            dto.UserUpdate(self.id, new_name, new_surname, new_email)
         )
 
         assert user.name == new_name

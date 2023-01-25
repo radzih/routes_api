@@ -1,4 +1,4 @@
-from src.business.domain import services, entities
+from src.business.domain import entities, services
 
 
 def test_create_user() -> None:

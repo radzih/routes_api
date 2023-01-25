@@ -1,7 +1,6 @@
-from pytest import raises
-
-from decimal import Decimal
 from datetime import datetime
+
+from pytest import raises
 
 from src.business.application.ticket import dto, exceptions, use_cases
 from tests.mocks.db import MockDBGateway
@@ -9,15 +8,11 @@ from tests.mocks.db import MockDBGateway
 
 class TestTicket:
     async def test_book_ticket(
-        self,
-        book_ticket: use_cases.BookTicket,
+        self, book_ticket: use_cases.BookTicket
     ) -> None:
         ticket = await book_ticket(
             dto.TicketBook(
-                route_id=1,
-                user_id=1,
-                from_station_id=1,
-                to_station_id=5,
+                route_id=1, user_id=1, from_station_id=1, to_station_id=5
             )
         )
 
@@ -28,20 +23,14 @@ class TestTicket:
         with raises(exceptions.InvalidTicketCreateData):
             await book_ticket(
                 dto.TicketBook(
-                    route_id=-1,
-                    user_id=-1,
-                    from_station_id=1,
-                    to_station_id=5,
+                    route_id=-1, user_id=-1, from_station_id=1, to_station_id=5
                 )
             )
 
         with raises(exceptions.InvalidTicketCreateData):
             await book_ticket(
                 dto.TicketBook(
-                    route_id=1,
-                    user_id=-1,
-                    from_station_id=1,
-                    to_station_id=5,
+                    route_id=1, user_id=-1, from_station_id=1, to_station_id=5
                 )
             )
 
@@ -55,8 +44,7 @@ class TestTicket:
             await get_ticket(-100)
 
     async def test_unbook_ticket(
-        self,
-        unbook_ticket: use_cases.UnbookTicket,
+        self, unbook_ticket: use_cases.UnbookTicket
     ) -> None:
         ticket = await unbook_ticket(1)
 
@@ -87,8 +75,7 @@ class TestTicket:
         assert len(tickets) == 0
 
     async def test_get_user_inactive_tickets(
-        self,
-        get_user_inactive_tickets: use_cases.GetUserInactiveTickets,
+        self, get_user_inactive_tickets: use_cases.GetUserInactiveTickets
     ):
         tickets = await get_user_inactive_tickets(dto.TicketsGet(1, 100, 0))
 

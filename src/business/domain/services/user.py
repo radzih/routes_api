@@ -14,7 +14,7 @@ def create_user(name: str, surname: str, email: str) -> entities.User:
 
 def update_user(
     user: entities.User,
-    name: Optional[str] = None, 
+    name: Optional[str] = None,
     surname: Optional[str] = None,
     email: Optional[str] = None,
 ) -> None:

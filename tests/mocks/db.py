@@ -3,10 +3,7 @@ from datetime import datetime, timedelta
 from src.business.domain import entities
 from tests.mocks import repositories
 
-TABLES = [
-    "ticket",
-    "user",
-]
+TABLES = ["ticket", "user"]
 
 
 class MockDBGateway(

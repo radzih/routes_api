@@ -6,7 +6,7 @@ def create_ticket(
     user_id: entities.UserId,
     from_station_id: entities.StationId,
     to_station_id: entities.StationId,
-    is_booked: bool
+    is_booked: bool,
 ) -> entities.Ticket:
     return entities.Ticket(
         id=None,

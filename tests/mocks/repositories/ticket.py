@@ -21,7 +21,7 @@ class TicketSaver(interfaces.TicketSaver, BaseRepo):
             raise exceptions.InvalidTicketCreateData
 
         ticket.price = Decimal(
-            abs(ticket.to_station_id - ticket.from_station_id),
+            abs(ticket.to_station_id - ticket.from_station_id)
         )
         ticket.departure_time = datetime.now()
         ticket.arrival_time = ticket.departure_time + timedelta(days=1)
