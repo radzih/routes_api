@@ -31,3 +31,10 @@ class TicketsGet:
     user_id: entities.UserId
     limit: int
     offset: int
+
+
+@dataclass
+class TicketPriceGet:
+    from_station_id: entities.StationId
+    to_station_id: entities.StationId
+    route_id: entities.RouteId

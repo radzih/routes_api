@@ -36,6 +36,14 @@ class TicketReader(Protocol):
     ) -> entities.Ticket:
         ...
 
+    async def read_ticket_price(
+        self,
+        from_station_id: entities.StationId,
+        to_stations_id: entities.StationId,
+        route_id: entities.RouteId,
+    ):
+        ...
+
 
 class TicketSaver(Protocol):
     async def save_ticket(self, ticket: entities.Ticket) -> entities.TicketId:

@@ -1,4 +1,5 @@
 from dataclasses import asdict
+from decimal import Decimal
 
 from src.business.application.common import use_cases
 from src.business.application.ticket import dto, interfaces
@@ -83,3 +84,12 @@ class DeleteTicket(use_cases.UseCase):
     async def __call__(self, data: entities.TicketId) -> None:
         await self.db_gateway.remove_ticket(data)
         await self.db_gateway.commit()
+
+
+class GetTicketPrice(use_cases.UseCase):
+    def __init__(self, db_gateway: interfaces.DBGateway) -> None:
+        self.db_gateway = db_gateway
+
+    async def __call__(self, data: dto.TicketPriceGet) -> Decimal:
+        ticket_price = await self.db_gateway.read_ticket_price(**asdict(data))
+        return ticket_price
