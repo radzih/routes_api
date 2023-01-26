@@ -13,6 +13,7 @@ from .ticket_use_cases import (
     get_user_inactive_tickets,
     unbook_ticket,
 )
+from .transport_use_cases import get_transport
 from .user_use_cases import create_user, get_user, update_user
 
 __all__ = [
@@ -31,4 +32,5 @@ __all__ = [
     "get_route_stations",
     "get_routes_from_to_station",
     "get_route",
+    "get_transport",
 ]

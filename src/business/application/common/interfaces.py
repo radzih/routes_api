@@ -78,3 +78,10 @@ class RouteReader(Protocol):
         route_id: entities.RouteId,
     ) -> list[dto.RouteStation]:
         ...
+
+
+class TransportReader(Protocol):
+    async def read_transport(
+        self, transport_id: entities.TransportId
+    ) -> entities.Transport:
+        ...
