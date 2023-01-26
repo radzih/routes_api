@@ -1,4 +1,5 @@
 from .db import db_gateway
+from .station_use_cases import get_station, get_stations
 from .ticket_use_cases import (
     book_ticket,
     delete_ticket,
@@ -20,4 +21,6 @@ __all__ = [
     "book_ticket",
     "unbook_ticket",
     "delete_ticket",
+    "get_stations",
+    "get_station",
 ]

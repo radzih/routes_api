@@ -43,3 +43,15 @@ class TicketSaver(Protocol):
 class TicketRemover(Protocol):
     async def remove_ticket(self, ticket_id: entities.TicketId) -> None:
         ...
+
+
+class StationReader(Protocol):
+    async def read_station(
+        self, station_id: entities.StationId
+    ) -> entities.Station:
+        ...
+
+    async def read_stations(
+        self, limit: int, offset: int
+    ) -> list[entities.Station]:
+        ...

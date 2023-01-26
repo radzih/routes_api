@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 from src.business.domain import entities
 from tests.mocks import repositories
 
-TABLES = ["ticket", "user"]
+TABLES = ["ticket", "user", "station"]
 
 
 class MockDBGateway(
@@ -13,6 +13,7 @@ class MockDBGateway(
     repositories.TicketRemover,
     repositories.TicketSaver,
     repositories.Commiter,
+    repositories.StationReader,
 ):
     def __init__(self) -> None:
         self.storage = {}
@@ -44,6 +45,11 @@ class MockDBGateway(
                     arrival_time=datetime.now() + timedelta(hours=1),
                     is_booked=booked,
                 )
+
+        for i in range(1, 11):
+            self.storage["station"][i] = entities.Station(
+                id=i, name=f"Station{i}"
+            )
 
     def clean_db(self):
         self.__init__()
