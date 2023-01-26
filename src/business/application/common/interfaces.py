@@ -1,5 +1,7 @@
+from datetime import date
 from typing import Optional, Protocol
 
+from src.business.application.common import dto
 from src.business.domain import entities
 
 
@@ -54,4 +56,25 @@ class StationReader(Protocol):
     async def read_stations(
         self, limit: int, offset: int
     ) -> list[entities.Station]:
+        ...
+
+
+class RouteReader(Protocol):
+    async def read_route(self, route_id: entities.RouteId) -> entities.Route:
+        ...
+
+    async def read_routes_from_to_station(
+        self,
+        limit: int,
+        offset: int,
+        to_station_id: entities.StationId,
+        from_station_id: entities.StationId,
+        departure_date: Optional[date] = None,
+    ) -> list[entities.Route]:
+        ...
+
+    async def read_route_stations(
+        self,
+        route_id: entities.RouteId,
+    ) -> list[dto.RouteStation]:
         ...

@@ -1,4 +1,9 @@
 from .db import db_gateway
+from .route_use_cases import (
+    get_route,
+    get_route_stations,
+    get_routes_from_to_station,
+)
 from .station_use_cases import get_station, get_stations
 from .ticket_use_cases import (
     book_ticket,
@@ -23,4 +28,7 @@ __all__ = [
     "delete_ticket",
     "get_stations",
     "get_station",
+    "get_route_stations",
+    "get_routes_from_to_station",
+    "get_route",
 ]
